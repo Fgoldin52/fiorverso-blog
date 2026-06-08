@@ -1,0 +1,86 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+
+const fmt = (date: Date) =>
+  date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout
+  title={`${d.title} — Fiorverso`}
+  description={d.description}
+  image={d.image}
+  article={{ pubDate: d.pubDate, updatedDate: d.updatedDate }}
+  faq={d.faqQuestion && d.keyTakeaway
+    ? { question: d.faqQuestion, answer: d.keyTakeaway }
+    : undefined}
+>
+  <Header />
+
+  <main class="mx-auto max-w-2xl px-6">
+    <article class="py-14 sm:py-20">
+      <!-- Post header -->
+      <header class="rise">
+        <div class="flex flex-wrap items-center gap-3 text-xs">
+          {d.industry && (
+            <span class="rounded-full bg-[var(--color-paper-deep)] px-3 py-1 font-medium text-[var(--color-ink-soft)] capitalize">
+              {d.industry} · {d.location}
+            </span>
+          )}
+          <span class="uppercase tracking-wider text-[var(--color-ink-faint)]">
+            {fmt(d.pubDate)}
+          </span>
+        </div>
+        <h1
+          class="mt-4 text-3xl sm:text-4xl font-semibold leading-[1.1] tracking-tight"
+          style="font-family: var(--font-display);"
+        >
+          {d.title}
+        </h1>
+        <p class="mt-4 text-lg text-[var(--color-ink-soft)]">{d.description}</p>
+      </header>
+
+      <!-- GEO key-takeaway callout: short, quotable answer for AI engines + skimmers -->
+      {d.keyTakeaway && (
+        <aside
+          class="rise mt-8 rounded-xl border-l-4 border-[var(--color-accent)] bg-[var(--color-paper-deep)] px-6 py-5"
+          style="animation-delay: 0.1s"
+        >
+          <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[var(--color-accent)]">
+            The short answer
+          </p>
+          <p class="mt-2 text-[var(--color-ink)] leading-relaxed">{d.keyTakeaway}</p>
+        </aside>
+      )}
+
+      <!-- Body -->
+      <div class="prose prose-lg max-w-none mt-10 rise" style="animation-delay: 0.15s">
+        <Content />
+      </div>
+
+      {d.tags.length > 0 && (
+        <div class="mt-12 flex flex-wrap gap-2 border-t border-[var(--color-line)] pt-8">
+          {d.tags.map((tag) => (
+            <span class="text-sm text-[var(--color-ink-faint)]">#{tag}</span>
+          ))}
+        </div>
+      )}
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>

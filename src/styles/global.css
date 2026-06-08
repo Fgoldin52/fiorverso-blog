@@ -1,0 +1,76 @@
+/* Distinctive type. Fraunces (characterful serif) + Hanken Grotesk (clean body). */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ============================================================
+   Fiorverso Blog — design tokens
+   Editorial / refined. Warm paper, deep ink, one decisive accent.
+   ============================================================ */
+@theme {
+  --color-paper: #f6f2ea;
+  --color-paper-deep: #efe8db;
+  --color-ink: #1c1a17;
+  --color-ink-soft: #4a463f;
+  --color-ink-faint: #807a6e;
+  --color-accent: #b8412e;        /* terracotta — confident, warm, not corporate-blue */
+  --color-accent-deep: #8f2f20;
+  --color-line: #ddd4c4;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Hanken Grotesk", system-ui, sans-serif;
+}
+
+html {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  /* subtle paper grain via layered gradient — atmosphere, not flat fill */
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(184, 65, 46, 0.035), transparent 40%),
+    radial-gradient(circle at 85% 90%, rgba(28, 26, 23, 0.03), transparent 45%);
+}
+
+/* Long-form post styling. Tailwind Typography 'prose' gives the base;
+   we override to match the editorial direction. */
+.prose {
+  --tw-prose-body: var(--color-ink-soft);
+  --tw-prose-headings: var(--color-ink);
+  --tw-prose-links: var(--color-accent-deep);
+  --tw-prose-bold: var(--color-ink);
+  --tw-prose-quotes: var(--color-ink);
+  --tw-prose-quote-borders: var(--color-accent);
+  --tw-prose-bullets: var(--color-accent);
+  --tw-prose-hr: var(--color-line);
+  font-size: 1.1875rem;
+  line-height: 1.75;
+}
+.prose h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-optical-sizing: auto;
+  letter-spacing: -0.015em;
+  margin-top: 2.4em;
+}
+.prose h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+.prose a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* Staggered page-load reveal */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.rise { animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }

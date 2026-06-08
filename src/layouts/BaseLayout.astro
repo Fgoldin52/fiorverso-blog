@@ -1,0 +1,103 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  // Optional structured-data inputs for blog posts
+  article?: {
+    pubDate: Date;
+    updatedDate?: Date;
+    author?: string;
+  };
+  faq?: { question: string; answer: string };
+  image?: string;
+}
+
+const { title, description, article, faq, image } = Astro.props;
+
+const SITE_NAME = 'Fiorverso';
+const AUTHOR = article?.author ?? 'Feliks';
+
+// Canonical URL built from the configured `site` in astro.config.mjs
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = image
+  ? new URL(image, Astro.site).toString()
+  : new URL('/og-default.png', Astro.site).toString();
+
+// --- Structured data (JSON-LD) ---
+// Article schema helps Google understand authorship/freshness.
+const articleSchema = article && {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  image: ogImage,
+  datePublished: article.pubDate.toISOString(),
+  ...(article.updatedDate && { dateModified: article.updatedDate.toISOString() }),
+  author: { '@type': 'Person', name: AUTHOR },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE_NAME,
+    url: 'https://fiorverso.com',
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalURL.toString() },
+};
+
+// FAQ schema is the GEO workhorse — answer engines lift Q&A pairs directly.
+const faqSchema = faq && {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary meta -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={AUTHOR} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- RSS autodiscovery -->
+    <link rel="alternate" type="application/rss+xml" title={SITE_NAME} href="/rss.xml" />
+
+    <!-- Structured data -->
+    {articleSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    )}
+    {faqSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    )}
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
