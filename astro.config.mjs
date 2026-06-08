@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   // IMPORTANT: set this to your live subdomain. Used for sitemap, RSS, and canonical URLs.
-  site: 'https://blog.fiorversodesign.com',
+  site: 'https://blog.fiorverso.com',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

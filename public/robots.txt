@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://blog.fiorversodesign.com/sitemap-index.xml
+Sitemap: https://blog.fiorverso.com/sitemap-index.xml
