@@ -11,6 +11,7 @@ tags: ["conversion", "ux", "barbershops", "mobile", "design-psychology"]
 draft: false
 ---
 
+
 A guy is standing outside on a Friday afternoon, phone in one hand, coffee in the other. He found your barbershop, likes the look of it, and wants to grab a chair for tomorrow. He taps his thumb toward the "Book Now" button up in the corner — and just misses it. Taps again. Hits the menu instead. Sighs, locks his phone, and figures he'll do it later.
 
 He won't do it later.
