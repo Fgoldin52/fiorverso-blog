@@ -8,7 +8,7 @@ location: "Baltimore"
 faqQuestion: "Why are people leaving my restaurant website without booking or ordering?"
 keyTakeaway: "Every extra choice on a page adds time and hesitation before someone acts. A visitor who lands on your restaurant site wants one obvious next step — book a table, see the menu, or order. When you give them eight competing buttons, many freeze and leave. Cut the options on each page down to one clear action and bookings go up."
 tags: ["conversion", "ux", "restaurants", "design-psychology"]
-draft: false
+draft: true
 ---
 
 A customer pulls up your restaurant on their phone. They're hungry, it's 6:40 on a Friday, and they're deciding between you and the place two blocks over. Your site loads. And then — they leave.

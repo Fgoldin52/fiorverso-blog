@@ -8,7 +8,7 @@ location: "Baltimore"
 faqQuestion: "Why do people start my dental appointment form but never finish it?"
 keyTakeaway: "Every field you add to a form gives someone another reason to stop. A new patient who's ready to book doesn't want to hand over their date of birth, insurance ID, and preferred hygienist before they've even spoken to anyone. When the form feels like paperwork, people abandon it. Cut it down to the two or three things you actually need to start a conversation, and more of the same visitors finish it."
 tags: ["conversion", "ux", "dental", "forms"]
-draft: false
+draft: true
 ---
 
 Someone's had a dull ache in a back molar for three days. Tonight it's bad enough that they've finally pulled out their phone and searched for a dentist near them. They land on your practice's site, they like it, they click "Request an Appointment." Ready to book.

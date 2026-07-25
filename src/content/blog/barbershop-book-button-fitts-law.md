@@ -8,7 +8,7 @@ location: "Baltimore"
 faqQuestion: "Why aren't people booking appointments through my website?"
 keyTakeaway: "On a phone, people hold it in one hand and tap with one thumb — which only comfortably reaches the bottom two-thirds of the screen. If your 'Book Now' button is small or parked up in a top corner, it sits in the hardest place to reach, so fewer people tap it. Make the button big and move it into the bottom thumb zone, and more of the same visitors actually book."
 tags: ["conversion", "ux", "barbershops", "mobile", "design-psychology"]
-draft: false
+draft: true
 ---
 
 
